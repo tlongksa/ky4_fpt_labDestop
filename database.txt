@@ -1,0 +1,340 @@
+USE [WebBanHang]
+GO
+/****** Object:  Table [dbo].[Account]    Script Date: 7/21/2020 11:52:44 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Account](
+	[userName] [nvarchar](300) NOT NULL,
+	[password] [nvarchar](200) NULL,
+	[address] [nvarchar](300) NULL,
+	[email] [nvarchar](300) NULL,
+	[phone] [nvarchar](50) NULL,
+	[role_id] [int] NULL,
+	[status] [int] NULL,
+ CONSTRAINT [PK__Account__66DCF95DC1110D1A] PRIMARY KEY CLUSTERED 
+(
+	[userName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[category]    Script Date: 7/21/2020 11:52:44 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[category](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[category] [nvarchar](30) NULL,
+	[status] [int] NULL,
+ CONSTRAINT [PK__category__3213E83F398EDDA4] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[image]    Script Date: 7/21/2020 11:52:44 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[image](
+	[id] [int] NOT NULL,
+	[product_id] [int] NULL,
+	[image_name] [nvarchar](50) NULL,
+	[status] [nvarchar](100) NULL,
+ CONSTRAINT [PK__image__3213E83F530AB383] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[order]    Script Date: 7/21/2020 11:52:44 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[order](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[customer_info_id] [int] NULL,
+	[total_price] [decimal](18, 0) NULL,
+	[note] [nvarchar](500) NULL,
+	[create_date] [date] NULL CONSTRAINT [DF_order_create_date]  DEFAULT (getdate()),
+	[status] [int] NULL,
+	[userName] [nvarchar](300) NULL,
+	[shipping_id] [int] NULL,
+ CONSTRAINT [PK_order] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[order_detail]    Script Date: 7/21/2020 11:52:44 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[order_detail](
+	[id] [int] NOT NULL,
+	[order_id] [int] NULL,
+	[product_id] [int] NULL,
+	[product_name] [nvarchar](100) NULL,
+	[product_price] [decimal](18, 0) NULL,
+	[quantity] [int] NULL,
+ CONSTRAINT [PK__order_de__3213E83F8AC0D4FD] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[product]    Script Date: 7/21/2020 11:52:44 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[product](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[category_id] [int] NULL,
+	[code] [nvarchar](100) NULL,
+	[name] [nvarchar](100) NULL,
+	[quantity] [int] NULL,
+	[price] [float] NULL,
+	[size] [nvarchar](50) NULL,
+	[description] [nvarchar](1000) NULL,
+	[image] [nvarchar](100) NULL,
+	[create_date] [datetime] NULL,
+	[status] [nvarchar](100) NULL,
+	[sale] [float] NULL,
+ CONSTRAINT [PK__product__3213E83F37E8741C] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Shipping]    Script Date: 7/21/2020 11:52:44 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Shipping](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](500) NULL,
+	[phone] [nvarchar](500) NULL,
+	[address] [nvarchar](500) NULL,
+ CONSTRAINT [PK_Shipping] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+INSERT [dbo].[Account] ([userName], [password], [address], [email], [phone], [role_id], [status]) VALUES (N'trantrong', N'1', N'dsfg', N'admin', N'124231434213', 1, 2)
+INSERT [dbo].[Account] ([userName], [password], [address], [email], [phone], [role_id], [status]) VALUES (N'trong', N'1', N'sdfsdf', N'trongthhe130690@fpt.edu.vn', N'124231434213', 1, 2)
+SET IDENTITY_INSERT [dbo].[category] ON 
+
+INSERT [dbo].[category] ([id], [category], [status]) VALUES (1, N'Áo Sơ Mi', 1)
+INSERT [dbo].[category] ([id], [category], [status]) VALUES (2, N'Áo Phông', 1)
+INSERT [dbo].[category] ([id], [category], [status]) VALUES (3, N'logo.jpg', 0)
+INSERT [dbo].[category] ([id], [category], [status]) VALUES (4, N'Áo Đôi', 1)
+INSERT [dbo].[category] ([id], [category], [status]) VALUES (5, N'Túi Xách', 1)
+INSERT [dbo].[category] ([id], [category], [status]) VALUES (6, N'Váy', 1)
+SET IDENTITY_INSERT [dbo].[category] OFF
+SET IDENTITY_INSERT [dbo].[order] ON 
+
+INSERT [dbo].[order] ([id], [customer_info_id], [total_price], [note], [create_date], [status], [userName], [shipping_id]) VALUES (1, 1, NULL, NULL, CAST(N'2020-07-20' AS Date), NULL, NULL, NULL)
+INSERT [dbo].[order] ([id], [customer_info_id], [total_price], [note], [create_date], [status], [userName], [shipping_id]) VALUES (2, 2, NULL, NULL, CAST(N'2020-07-20' AS Date), NULL, NULL, NULL)
+SET IDENTITY_INSERT [dbo].[order] OFF
+SET IDENTITY_INSERT [dbo].[product] ON 
+
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (1, 2, N'AP1', N'Áo Phông', NULL, 200000, N'S-M-L', N'Áo phông ngắn tay nam dáng loose phối túi ngực in graphic SỨA.
+- Chất liệu: cotton
+- Size mẫu mặc: L
+- Số đo mẫu: 75 kg, 94 - 74 - 90 - 184 (cm)', N'ap1.jpg', CAST(N'2020-11-08 00:00:00.000' AS DateTime), N'1', 10)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (2, 2, N'AP2', N'Áo Phông', NULL, 300000, N'S-M-L', N'Áo phông ngắn tay nam dáng loose phối túi ngực in graphic SỨA.
+- Chất liệu: cotton
+- Size mẫu mặc: L
+- Số đo mẫu: 75 kg, 94 - 74 - 90 - 184 (cm)', N'ap2.jpg', CAST(N'2020-11-07 00:00:00.000' AS DateTime), N'2', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (3, 2, N'AP3', N'Áo Phông', NULL, 150000, N'S-M-L', N'Áo phông ngắn tay nam dáng loose phối túi ngực in graphic SỨA.
+- Chất liệu: cotton
+- Size mẫu mặc: L
+- Số đo mẫu: 75 kg, 94 - 74 - 90 - 184 (cm)', N'ap3.jpg', CAST(N'2020-11-01 00:00:00.000' AS DateTime), N'2', 10)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (4, 2, N'AP4', N'Áo Phông', NULL, 320000, N'S-M-L', N'Áo phông ngắn tay nam dáng loose phối túi ngực in graphic SỨA.
+- Chất liệu: cotton
+- Size mẫu mặc: L
+- Số đo mẫu: 75 kg, 94 - 74 - 90 - 184 (cm)', N'ap4.jpg', CAST(N'2020-11-10 00:00:00.000' AS DateTime), N'1', 15)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (5, 1, N'ASM1', N'Áo Sơ Mi', 100, 200000, N'S-M-L', N'Áo sơ mi nam dáng cơ bản can ngực
+
+- Chất liệu: Cotton tự nhiên.
+- Size mẫu mặc: L
+- Số đo mẫu: cao 185cm, nặng 65 kg, ngực 90cm - eo 72cm - hông 88cm.', N'asm1.jpg', CAST(N'2020-02-03 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (6, 1, N'ASM2', N'Áo Sơ Mi', 100, 300000, N'S-M-L', N'Áo sơ mi nam dáng cơ bản can ngực
+
+- Chất liệu: Cotton tự nhiên.
+- Size mẫu mặc: L
+- Số đo mẫu: cao 185cm, nặng 65 kg, ngực 90cm - eo 72cm - hông 88cm.', N'asm2.jpg', CAST(N'2019-11-02 00:00:00.000' AS DateTime), N'1', 10)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (7, 1, N'ASM3', N'Áo Sơ Mi', 100, 10000000, N'S-M-L', N'Áo sơ mi nam dáng cơ bản can ngực
+
+- Chất liệu: Cotton tự nhiên.
+- Size mẫu mặc: L
+- Số đo mẫu: cao 185cm, nặng 65 kg, ngực 90cm - eo 72cm - hông 88cm.', N'asm3.jpg', CAST(N'2019-03-01 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (8, 1, N'ASM4', N'Áo Sơ Mi', 100, 2999999, N'S-M-L', N'Áo sơ mi nam dáng cơ bản can ngực
+
+- Chất liệu: Cotton tự nhiên.
+- Size mẫu mặc: L
+- Số đo mẫu: cao 185cm, nặng 65 kg, ngực 90cm - eo 72cm - hông 88cm.', N'asm4.jpg', CAST(N'2020-11-04 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (9, 1, N'ASM5', N'Áo Sơ Mi', 100, 11111111, N'S-M-L', N'Áo sơ mi nam dáng cơ bản can ngực
+
+- Chất liệu: Cotton tự nhiên.
+- Size mẫu mặc: L
+- Số đo mẫu: cao 185cm, nặng 65 kg, ngực 90cm - eo 72cm - hông 88cm.', N'asm5.jpg', CAST(N'2020-11-06 00:00:00.000' AS DateTime), N'1', 11)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (10, 2, N'AP5', N'Áo Phông', 100, 19999999, N'S-M-L', N'Áo phông ngắn tay nam dáng loose phối túi ngực in graphic SỨA.
+- Chất liệu: cotton
+- Size mẫu mặc: L
+- Số đo mẫu: 75 kg, 94 - 74 - 90 - 184 (cm)', N'ap5.jpg', CAST(N'2020-06-11 00:00:00.000' AS DateTime), N'1', 20)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (11, 2, N'AP6', N'Áo Phông', 100, 55555555, N'S-M-L', N'Áo phông ngắn tay nam dáng loose phối túi ngực in graphic SỨA.
+- Chất liệu: cotton
+- Size mẫu mặc: L
+- Số đo mẫu: 75 kg, 94 - 74 - 90 - 184 (cm)', N'ap6.jpg', CAST(N'2020-12-07 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (12, 2, N'AP7', N'Áo Phông', 100, 2222222, N'S-M-L', N'Áo phông ngắn tay nam dáng loose phối túi ngực in graphic SỨA.
+- Chất liệu: cotton
+- Size mẫu mặc: L
+- Số đo mẫu: 75 kg, 94 - 74 - 90 - 184 (cm)', N'ap7.jpg', CAST(N'2020-11-02 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (13, 2, N'AP8', N'Áo Phông', 100, 123456, N'S-M-L', N'Áo phông ngắn tay nam dáng loose phối túi ngực in graphic SỨA.
+- Chất liệu: cotton
+- Size mẫu mặc: L
+- Số đo mẫu: 75 kg, 94 - 74 - 90 - 184 (cm)', N'ap8.jpg', CAST(N'2020-02-01 00:00:00.000' AS DateTime), N'2', 35)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (14, 2, N'AP9', N'Áo Phông', 100, 875421, N'S-M-L', N'Áo phông ngắn tay nam dáng loose phối túi ngực in graphic SỨA.
+- Chất liệu: cotton
+- Size mẫu mặc: L
+- Số đo mẫu: 75 kg, 94 - 74 - 90 - 184 (cm)', N'ap9.jpg', CAST(N'2019-12-04 00:00:00.000' AS DateTime), N'2', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (15, 1, N'ASM6', N'Áo Sơ Mi', 100, 3523541, N'S-M-L', N'Áo sơ mi nam dáng cơ bản can ngực
+
+- Chất liệu: Cotton tự nhiên.
+- Size mẫu mặc: L
+- Số đo mẫu: cao 185cm, nặng 65 kg, ngực 90cm - eo 72cm - hông 88cm.', N'asm6.jpg', CAST(N'2020-11-01 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (16, 1, N'ASM7', N'Áo Sơ Mi', 100, 235235, N'S-M-L', N'Áo sơ mi nam dáng cơ bản can ngực
+
+- Chất liệu: Cotton tự nhiên.
+- Size mẫu mặc: L
+- Số đo mẫu: cao 185cm, nặng 65 kg, ngực 90cm - eo 72cm - hông 88cm.', N'asm7.jpg', CAST(N'2002-12-05 00:00:00.000' AS DateTime), N'2', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (17, 1, N'ASM8', N'Áo Sơ Mi', 100, 345235, N'S-M-L', N'Áo sơ mi nam dáng cơ bản can ngực
+
+- Chất liệu: Cotton tự nhiên.
+- Size mẫu mặc: L
+- Số đo mẫu: cao 185cm, nặng 65 kg, ngực 90cm - eo 72cm - hông 88cm.', N'asm8.jpg', CAST(N'2020-01-02 00:00:00.000' AS DateTime), N'1', 10)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (18, 5, N'TX1', N'Túi Xách', 100, 23412341, N'S-M-L', N'Túi bumbag unisex in và dệt dây typographic Star Wars, có ngăn nhỏ bên trong. 
+
+Chất liệu: vải dù. ', N'ts1.jpg', CAST(N'2020-12-04 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (19, 5, N'TX2', N'Túi Xách', 100, 2342141, N'S-M-L', N'Túi bumbag unisex in và dệt dây typographic Star Wars, có ngăn nhỏ bên trong. 
+
+Chất liệu: vải dù. ', N'ts2.jpg', CAST(N'2019-05-02 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (24, 5, N'TX3', N'Túi Xách', 100, 1242143, N'S-M-L', N'Túi bumbag unisex in và dệt dây typographic Star Wars, có ngăn nhỏ bên trong. 
+
+Chất liệu: vải dù. ', N'ts3.jpg', CAST(N'2020-11-02 00:00:00.000' AS DateTime), N'2', 10)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (25, 5, N'TX4', N'Túi Xách', 100, 235423, N'S-M-L', N'Túi bumbag unisex in và dệt dây typographic Star Wars, có ngăn nhỏ bên trong. 
+
+Chất liệu: vải dù. ', N'ts4.jpg', CAST(N'2020-02-01 00:00:00.000' AS DateTime), N'2', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (26, 5, N'TX5', N'Túi Xách', 100, 889654, N'S-M-L', N'Túi bumbag unisex in và dệt dây typographic Star Wars, có ngăn nhỏ bên trong. 
+
+Chất liệu: vải dù. ', N'ts5.jpg', CAST(N'2019-01-05 00:00:00.000' AS DateTime), N'2', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (27, 5, N'TX6', N'Túi Xách', 100, 21435436, N'S-M-L', NULL, N'ts6.jpg', CAST(N'2019-05-06 00:00:00.000' AS DateTime), N'2', 90)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (28, 4, N'AD1', N'Áo Đôi', 100, 3463416, N'S-M-L', NULL, N'ad1.jpg', CAST(N'2020-11-06 00:00:00.000' AS DateTime), N'1', 22)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (29, 4, N'AD2', N'Áo Đôi', 100, 2351235, N'S-M-L', NULL, N'ad2.jpg', CAST(N'2020-11-06 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (30, 4, N'AD3', N'Áo Đôi', 100, 67876856, N'S-M-L', NULL, N'ad3.jpg', CAST(N'2020-12-07 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (31, 4, N'AD4', N'Áo Đôi', 100, 34523623, N'S-M-L', NULL, N'ad4.jpg', CAST(N'2019-12-04 00:00:00.000' AS DateTime), N'1', 10)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (32, 4, N'AD5', N'Áo Đôi', 100, 34652351, N'S-M-L', NULL, N'ad5.jpg', CAST(N'2020-01-02 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (33, 4, N'AD6', N'Áo Đôi', 100, 5687456745, N'S-M-L', NULL, N'ad6.jpg', CAST(N'2019-03-01 00:00:00.000' AS DateTime), N'2', 50)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (34, 4, N'AD7', N'Áo Đôi', 100, 23523566, N'S-M-L', NULL, N'ad7.jpg', CAST(N'2019-03-01 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (35, 4, N'AD8', N'Áo Đôi', 100, 456634235, N'S-M-L', NULL, N'ad8.jpg', CAST(N'2020-11-10 00:00:00.000' AS DateTime), N'2', 11)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (36, 6, N'V1', N'Váy', 100, 463566234, N'S-M-L', N'Váy nữ dáng babydoll
+
+- Chất liệu: cotton tự nhiên
+- Size mẫu mặc: M
+- Số đo mẫu: 50kg, 80 - 60 - 90, 167 cm', N'v1.jpg', CAST(N'2020-12-04 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (37, 6, N'V2', N'Váy', 100, 34515346, N'S-M-L', N'Váy nữ dáng babydoll
+
+- Chất liệu: cotton tự nhiên
+- Size mẫu mặc: M
+- Số đo mẫu: 50kg, 80 - 60 - 90, 167 cm', N'v2.jpg', CAST(N'2019-11-02 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (38, 6, N'V3', N'Váy', 100, 768568756, N'S-M-L', N'Váy nữ dáng babydoll
+
+- Chất liệu: cotton tự nhiên
+- Size mẫu mặc: M
+- Số đo mẫu: 50kg, 80 - 60 - 90, 167 cm', N'v3.jpg', CAST(N'2019-11-03 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (39, 6, N'V4', N'Váy', 100, 2351235, N'S-M-L', N'Váy nữ dáng babydoll
+
+- Chất liệu: cotton tự nhiên
+- Size mẫu mặc: M
+- Số đo mẫu: 50kg, 80 - 60 - 90, 167 cm', N'v4.jpg', CAST(N'2019-02-05 00:00:00.000' AS DateTime), N'2', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (40, 6, N'V5', N'Váy', 100, 3464366, N'S-M-L', N'Váy nữ dáng babydoll
+
+- Chất liệu: cotton tự nhiên
+- Size mẫu mặc: M
+- Số đo mẫu: 50kg, 80 - 60 - 90, 167 cm', N'v5.jpg', CAST(N'2020-02-05 00:00:00.000' AS DateTime), N'1', 10)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (41, 6, N'V6', N'Váy', 100, 678564845, N'S-M-L', N'Váy nữ dáng babydoll
+
+- Chất liệu: cotton tự nhiên
+- Size mẫu mặc: M
+- Số đo mẫu: 50kg, 80 - 60 - 90, 167 cm', N'v6.jpg', CAST(N'2020-02-07 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (42, 6, N'V7', N'Váy', 100, 342523, N'S-M-L', N'Váy nữ dáng babydoll
+
+- Chất liệu: cotton tự nhiên
+- Size mẫu mặc: M
+- Số đo mẫu: 50kg, 80 - 60 - 90, 167 cm', N'v7.jpg', CAST(N'2020-06-09 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (43, 6, N'V8', N'Váy', 100, 34634, N'S-M-L', N'Váy nữ dáng babydoll
+
+- Chất liệu: cotton tự nhiên
+- Size mẫu mặc: M
+- Số đo mẫu: 50kg, 80 - 60 - 90, 167 cm', N'v8.jpg', CAST(N'2020-09-08 00:00:00.000' AS DateTime), N'1', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (44, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, N'', NULL)
+INSERT [dbo].[product] ([id], [category_id], [code], [name], [quantity], [price], [size], [description], [image], [create_date], [status], [sale]) VALUES (45, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL)
+SET IDENTITY_INSERT [dbo].[product] OFF
+ALTER TABLE [dbo].[image]  WITH CHECK ADD  CONSTRAINT [FK_image_product] FOREIGN KEY([product_id])
+REFERENCES [dbo].[product] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[image] CHECK CONSTRAINT [FK_image_product]
+GO
+ALTER TABLE [dbo].[order]  WITH CHECK ADD  CONSTRAINT [FK_order_Account] FOREIGN KEY([userName])
+REFERENCES [dbo].[Account] ([userName])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[order] CHECK CONSTRAINT [FK_order_Account]
+GO
+ALTER TABLE [dbo].[order]  WITH CHECK ADD  CONSTRAINT [FK_order_Shipping] FOREIGN KEY([shipping_id])
+REFERENCES [dbo].[Shipping] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[order] CHECK CONSTRAINT [FK_order_Shipping]
+GO
+ALTER TABLE [dbo].[order_detail]  WITH CHECK ADD  CONSTRAINT [FK_order_detail_order] FOREIGN KEY([order_id])
+REFERENCES [dbo].[order] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[order_detail] CHECK CONSTRAINT [FK_order_detail_order]
+GO
+ALTER TABLE [dbo].[order_detail]  WITH CHECK ADD  CONSTRAINT [FK_order_detail_product] FOREIGN KEY([product_id])
+REFERENCES [dbo].[product] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[order_detail] CHECK CONSTRAINT [FK_order_detail_product]
+GO
+ALTER TABLE [dbo].[product]  WITH CHECK ADD  CONSTRAINT [FK_product_category] FOREIGN KEY([category_id])
+REFERENCES [dbo].[category] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[product] CHECK CONSTRAINT [FK_product_category]
+GO
